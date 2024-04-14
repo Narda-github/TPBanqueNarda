@@ -78,10 +78,9 @@ public class Transfert {
             return null;
         }
         this.gestionnaireCompte.transferer(source, destination, this.somme);
-        Util.addFlashInfoMessage("Montant de  " + this.somme + "  transféré .Source: "+ source.getNom()+ "/Destinataire:" + destination.getNom());
+        Util.addFlashInfoMessage("Montant de  " + this.somme + "  transféré .Source: " + source.getNom() + "/Destinataire:" + destination.getNom());
         Util.addFlashInfoMessage("Transfert correctement effectué");
         return "listeComptes?faces-redirect=true";
     }
 
-    
 }
