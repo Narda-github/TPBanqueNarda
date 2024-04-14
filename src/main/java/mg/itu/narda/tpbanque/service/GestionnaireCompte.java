@@ -41,6 +41,24 @@ public class GestionnaireCompte {
     @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
 
+    public CompteBancaire findCompteById(Long id) {
+        return em.find(CompteBancaire.class, id);
+    }
+
+    @Transactional
+    public void transferer(CompteBancaire source, CompteBancaire destination,
+            int montant) {
+        source.retirer(montant);
+        destination.deposer(montant);
+        update(source);
+        update(destination);
+    }
+
+    @Transactional
+    public CompteBancaire update(CompteBancaire compteBancaire) {
+        return em.merge(compteBancaire);
+    }
+
     public Long nbComptes() {
         Query query = em.createNamedQuery("CompteBancaire.countAll");
         return (Long) query.getSingleResult();

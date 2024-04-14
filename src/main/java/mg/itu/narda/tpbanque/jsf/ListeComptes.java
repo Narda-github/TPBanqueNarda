@@ -23,19 +23,18 @@ public class ListeComptes implements Serializable {
     @Inject
     private GestionnaireCompte gestionnaireCompte;
     private List<CompteBancaire> allComptes;
+
     /**
      * Creates a new instance of ListeComptes
      */
     public ListeComptes() {
     }
+
     public List<CompteBancaire> getAllComptes() {
         if (this.allComptes == null) {
             this.allComptes = gestionnaireCompte.getAllComptes();
         }
-        System.out.print("LIGNE 1"+this.allComptes.get(0).getNom());
         return this.allComptes;
     }
-
-    
 
 }

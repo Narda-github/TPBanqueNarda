@@ -4,7 +4,6 @@
  */
 package mg.itu.narda.tpbanque.config;
 
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.event.Observes;
@@ -19,15 +18,17 @@ import mg.itu.narda.tpbanque.service.GestionnaireCompte;
  */
 @ApplicationScoped
 public class Init {
+
     @Inject
     private GestionnaireCompte gcompte;
 
     public void init(
-        @Observes
-        @Initialized(ApplicationScoped.class) ServletContext context) {
+            @Observes
+            @Initialized(ApplicationScoped.class) ServletContext context) {
         creerCompte();
     }
-    void creerCompte(){
+
+    void creerCompte() {
         Long count = gcompte.nbComptes();
         if (count == 0) {
             gcompte.creerCompte(new CompteBancaire("John Lennon", 150000));
@@ -36,6 +37,5 @@ public class Init {
             gcompte.creerCompte(new CompteBancaire("Georges Harrisson", 100000));
         }
     }
-    
+
 }
- 
