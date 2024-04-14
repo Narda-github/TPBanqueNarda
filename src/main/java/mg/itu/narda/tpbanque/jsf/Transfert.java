@@ -8,8 +8,8 @@ import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import mg.itu.narda.tpbanque.entity.CompteBancaire;
+import mg.itu.narda.tpbanque.jsf.util.Util;
 import mg.itu.narda.tpbanque.service.GestionnaireCompte;
-import xx.xxxxx.xxxxx.jsf.util.Util;
 
 /**
  *
