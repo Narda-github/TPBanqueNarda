@@ -41,6 +41,11 @@ public class GestionnaireCompte {
     @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
 
+    @Transactional
+    public void supprimerCompte(CompteBancaire compte) {
+        em.remove(em.merge(compte));
+    }
+
     public CompteBancaire findCompteById(Long id) {
         return em.find(CompteBancaire.class, id);
     }

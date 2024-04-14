@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import mg.itu.narda.tpbanque.entity.CompteBancaire;
+import mg.itu.narda.tpbanque.jsf.util.Util;
 import mg.itu.narda.tpbanque.service.GestionnaireCompte;
 
 /**
@@ -37,4 +38,9 @@ public class ListeComptes implements Serializable {
         return this.allComptes;
     }
 
+    public String supprimerCompte(CompteBancaire compteBancaire) {
+        gestionnaireCompte.supprimerCompte(compteBancaire);
+        Util.addFlashInfoMessage("Compte de " + compteBancaire.getNom() + " supprimé");
+        return "listeComptes?faces-redirect=true";
+    }
 }
