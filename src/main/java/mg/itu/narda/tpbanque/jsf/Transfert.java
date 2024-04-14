@@ -9,6 +9,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import mg.itu.narda.tpbanque.entity.CompteBancaire;
 import mg.itu.narda.tpbanque.service.GestionnaireCompte;
+import xx.xxxxx.xxxxx.jsf.util.Util;
 
 /**
  *
@@ -57,9 +58,30 @@ public class Transfert {
     }
 
     public String transfert() {
+        boolean erreur = false;
         CompteBancaire source = this.gestionnaireCompte.findCompteById(idSource);
         CompteBancaire destination = this.gestionnaireCompte.findCompteById(idDestination);
+        if (source == null) {
+            Util.messageErreur("Aucun compte avec cet id !", "Aucun compte avec cet id !", "form:source");
+            erreur = true;
+        } else {
+            if (source.getSolde() < somme) { // à compléter pour le cas où le solde du compte source est insuffisant...
+                Util.messageErreur("Solde du compte insuffisant!", "Solde insuffisant!", "form:somme");
+                erreur = true;
+            }
+        }
+        if (destination == null) {
+            Util.messageErreur("Aucun compte avec cet id !", "Aucun compte avec cet id !", "form:destination");
+            erreur = true;
+        }
+        if (erreur) {
+            return null;
+        }
         this.gestionnaireCompte.transferer(source, destination, this.somme);
+        Util.addFlashInfoMessage("Montant de  " + this.somme + "  transféré .Source: "+ source.getNom()+ "/Destinataire:" + destination.getNom());
+        Util.addFlashInfoMessage("Transfert correctement effectué");
         return "listeComptes?faces-redirect=true";
     }
+
+    
 }
