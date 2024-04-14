@@ -6,7 +6,6 @@ package mg.itu.narda.tpbanque.service;
 
 import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -47,7 +46,7 @@ public class GestionnaireCompte {
         return (Long) query.getSingleResult();
     }
 
-    List<CompteBancaire> getAllComptes() {
+    public List<CompteBancaire> getAllComptes() {
         TypedQuery<CompteBancaire> query = em.createNamedQuery("CompteBancaire.findAll",
                 CompteBancaire.class);
         return query.getResultList();
