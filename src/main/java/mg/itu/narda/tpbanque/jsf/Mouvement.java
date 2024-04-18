@@ -106,7 +106,7 @@ public class Mouvement implements Serializable {
         } else {
             gestionnaireCompte.retirer(compte, montant);
         }
-        Util.addFlashInfoMessage("Mouvement "+typeMouvement+" enregistré sur compte de " + compte.getNom());
+        Util.addFlashInfoMessage("Mouvement " + typeMouvement + " enregistré sur compte de " + compte.getNom());
         return "listeComptes?faces-redirect=true";
     }
 

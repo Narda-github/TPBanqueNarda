@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+
+        <ui:composition template="./WEB-INF/template/template.xhtml">
+
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewParam name="compteId" value="#{operations.compteId}"
+                                 required="true"/>
+                    <f:viewAction action="#{operations.loadCompte}"/>
+                </f:metadata>
+            </ui:define>
+
+            <ui:define name="top">
+                Historique Opérations 
+
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>
+                    Historique des opérations sur le compte de #{operations.compte.nom}
+                </h1>
+
+                <p:dataTable value="#{operations.listeOperations}"
+                             var="operation"
+                             paginator="true" rows="10"
+                             rowsPerPageTemplate="2,4,8,10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             >
+                    <p:column width="10">
+                        <f:facet name="header">
+                            <h:outputText value="Id Opération"/>
+                        </f:facet>
+                        <h:outputText value="#{operation.id}"/>
+                    </p:column>
+                    <p:column width="100">
+                        <f:facet name="header">
+                            <h:outputText value="Description"/>
+                        </f:facet>
+                        <h:outputText value="#{operation.description}"/>
+                    </p:column>
+                    <p:column width="100">
+                        <f:facet name="header">
+                            <h:outputText value="Date Opération"/>
+                        </f:facet>
+                        <h:outputText value="#{operation.dateOperation}">
+                            <f:convertDateTime type="localDateTime" pattern="dd/mm/yyyy hh:mm:ss"/>
+                        </h:outputText> 
+                    </p:column>
+
+                    <p:column  width="100">
+                        <f:facet name="header">
+                            <h:outputText value="Montant"/>
+                        </f:facet>
+                        <h:outputText value="#{operation.montant}">
+                            <f:convertNumber pattern="###,###,##0"/>
+                        </h:outputText>                            
+                    </p:column>
+
+                </p:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
