@@ -13,7 +13,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import mg.itu.narda.tpbanque.entity.CompteBancaire;
-import mg.itu.narda.tpbanque.entity.OperationBancaire;
+
 
 /**
  *
