@@ -4,13 +4,18 @@
  */
 package mg.itu.narda.tpbanque.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,6 +36,12 @@ public class CompteBancaire implements Serializable {
     private Long id;
     private String nom;
     private int solde;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OperationBancaire> operations = new ArrayList<>();
+
+    public List<OperationBancaire> getOperations() {
+        return operations;
+    }
 
     public CompteBancaire() {
     }
@@ -38,15 +49,19 @@ public class CompteBancaire implements Serializable {
     public CompteBancaire(String nom, int solde) {
         this.nom = nom;
         this.solde = solde;
+        operations.add(new OperationBancaire("Création du compte", solde));
     }
 
     public void deposer(int montant) {
         solde += montant;
+        operations.add(new OperationBancaire("Crédit", montant));
     }
 
     public void retirer(int montant) {
         if (montant < solde) {
             solde -= montant;
+            int debit = montant * -1;
+            operations.add(new OperationBancaire("Débit", debit));
         } else {
             solde = 0;
         }
